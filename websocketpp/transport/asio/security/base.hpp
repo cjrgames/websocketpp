@@ -34,7 +34,17 @@
 #include <websocketpp/common/cpp11.hpp>
 #include <websocketpp/common/connection_hdl.hpp>
 
+#ifdef _WEBSOCKETPP_USE_ASIO_
+#include <asio.hpp>
+// all asio functions are in the asio::namespace
+namespace boost {
+  namespace asio = ::asio;
+}
+
+
+#else
 #include <boost/asio.hpp>
+#endif
 
 #include <iostream>
 #include <string>

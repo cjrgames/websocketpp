@@ -32,7 +32,17 @@
 #include <websocketpp/common/functional.hpp>
 #include <websocketpp/common/system_error.hpp>
 
+#ifdef _WEBSOCKETPP_USE_ASIO_
+#include <asio/error_code.hpp>
+// asio provides its own error code class
+namespace boost {
+  namespace system {
+    typedef asio::error_code error_code;  
+  }
+}
+#else
 #include <boost/system/error_code.hpp>
+#endif
 
 #include <string>
 

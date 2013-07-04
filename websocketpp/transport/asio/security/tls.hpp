@@ -33,9 +33,26 @@
 #include <websocketpp/common/functional.hpp>
 #include <websocketpp/common/memory.hpp>
 
+#ifdef _WEBSOCKETPP_USE_ASIO_
+#include <asio.hpp>
+#include <asio/error_code.hpp>
+#include <asio/ssl.hpp>
+// asio provides its own error code class
+namespace boost {
+  namespace system {
+    typedef asio::error_code error_code;  
+  }
+}
+// all asio functions are in the asio::namespace
+namespace boost {
+  namespace asio = ::asio;
+}
+
+#else
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/system/error_code.hpp>
+#endif
 
 #include <iostream>
 #include <string>
